@@ -106,11 +106,11 @@ Use Docker Compose for the initial deployment. Keep the API, worker, scheduler, 
 
 ## Delivery sequence
 
-1. Convert the existing dashboard into the Next.js staff shell and preserve the current RecoverIQ workflows.
+1. Keep the Next.js public journey and institution staff shell aligned with Foundry360 workflows.
 2. Implement Django models, tenant-scoped query services, custody events, and staff authentication.
 3. Add public claimant reporting with OTP access and private R2 uploads.
 4. Add Celery-backed SMS/WhatsApp notifications, retention jobs, and document redaction.
 5. Add QR bin tags, transfers, disposal notices, and audit exports.
 6. Add Daraja billing and optional delivery only after institutional workflows are stable.
 
-The production application is scaffolded in `frontend/` and `backend/`. External messaging, payments, and object storage adapters will be added behind the API service boundaries.
+The production application is scaffolded in `frontend/` and `backend/`. External messaging, payments, and object storage adapters will be added behind the API service boundaries. Detailed behavior is documented in `docs/PRODUCT.md`, `docs/API.md`, `docs/OPERATIONS.md`, and `docs/SECURITY.md`.
