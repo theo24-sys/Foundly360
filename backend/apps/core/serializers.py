@@ -13,7 +13,7 @@ class OrganizationScopedSerializer(serializers.ModelSerializer):
 class LocationSerializer(OrganizationScopedSerializer):
     class Meta:
         model = Location
-        fields = ["id", "organization", "name", "address", "is_active"]
+        fields = ["id", "organization", "name", "address", "kind", "is_receiving_point", "opening_hours", "contact_phone", "is_active"]
 
 
 class StorageBinSerializer(OrganizationScopedSerializer):

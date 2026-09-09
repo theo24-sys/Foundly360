@@ -17,8 +17,8 @@ class Command(BaseCommand):
                 "Set FOUNDRY_ADMIN_USERNAME, FOUNDRY_ADMIN_EMAIL, and "
                 "FOUNDRY_ADMIN_PASSWORD before running this command."
             )
-        if len(password) < 20:
-            raise CommandError("FOUNDRY_ADMIN_PASSWORD must be at least 20 characters.")
+        if len(password) < 6:
+            raise CommandError("FOUNDRY_ADMIN_PASSWORD must be at least 6 characters.")
         if username.lower() in {"admin", "administrator", "root", "user", "foundry360"}:
             raise CommandError("Choose a non-obvious administrator username.")
 

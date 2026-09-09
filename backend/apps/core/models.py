@@ -29,9 +29,19 @@ class Membership(models.Model):
 
 
 class Location(models.Model):
+    class Kind(models.TextChoices):
+        SECURITY_DESK = "SECURITY_DESK", "Security desk"
+        RECEPTION = "RECEPTION", "Reception"
+        REGISTRY = "REGISTRY", "Registry"
+        PROPERTY_STORE = "PROPERTY_STORE", "Property store"
+
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE, related_name="locations")
     name = models.CharField(max_length=160)
     address = models.CharField(max_length=240, blank=True)
+    kind = models.CharField(max_length=24, choices=Kind.choices, default=Kind.SECURITY_DESK)
+    is_receiving_point = models.BooleanField(default=True)
+    opening_hours = models.CharField(max_length=120, blank=True)
+    contact_phone = models.CharField(max_length=40, blank=True)
     is_active = models.BooleanField(default=True)
 
     class Meta:
