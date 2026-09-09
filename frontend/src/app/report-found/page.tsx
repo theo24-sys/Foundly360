@@ -1,0 +1,8 @@
+"use client";
+
+import { useState } from "react";
+
+export default function ReportFoundPage() {
+  const [submitted, setSubmitted] = useState(false);
+  return <main className="form-shell"><a className="brand" href="/"><span className="brand-mark">+</span>foundry360</a><section className="public-form"><a className="back-link" href="/">← Back to Foundry360</a><p className="eyebrow">Community handover</p><h1>Report something found</h1><p className="muted">Tell the participating institution where the item is waiting so staff can secure it.</p>{submitted ? <div className="confirmation"><span className="confirm-mark">✓</span><h2>Thank you for helping</h2><p>The institution has been notified. Please take the item to its security or reception desk if you still have it.</p><a className="secondary" href="/">Return home</a></div> : <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true); }}><div className="form-grid"><label>Found at institution<input required placeholder="Search for a participating institution" /></label><label>Phone number<input type="tel" placeholder="Optional contact" /></label><label>Item category<select><option>Phone or electronics</option><option>Bag or wallet</option><option>Document or ID</option><option>Keys</option><option>Other</option></select></label><label>Found location<input required placeholder="Library, gate, residence..." /></label><label className="wide">Safe description<textarea required placeholder="Describe what you found without private owner details." /></label></div><button className="primary" type="submit">Send to institution</button></form>}</section></main>;
+}

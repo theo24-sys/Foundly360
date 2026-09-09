@@ -1,0 +1,8 @@
+"use client";
+
+import { useState } from "react";
+
+export default function NewFoundItemPage() {
+  const [saved, setSaved] = useState(false);
+  return <main className="subpage-shell"><a className="brand" href="/app"><span className="brand-mark">+</span>foundry360</a><section className="subpage form-page"><a className="back-link" href="/app">← Back to workspace</a><p className="eyebrow">Staff intake</p><h1>Register a found item</h1><p className="muted">Create a custody record. Keep private identifying details out of public descriptions.</p>{saved ? <div className="confirmation"><span className="confirm-mark">✓</span><h2>Case created</h2><p>Found item reference <strong>#LP-1049</strong> is now stored in <strong>BOX-A12</strong>.</p><a className="primary" href="/app">Return to overview</a></div> : <form onSubmit={(event) => { event.preventDefault(); setSaved(true); }}><div className="form-grid"><label>Item title<input required placeholder="Black leather wallet" /></label><label>Category<select><option>Electronics</option><option>Bags</option><option>Documents</option><option>Keys</option><option>Other</option></select></label><label>Found location<input required placeholder="Student Centre" /></label><label>Storage bin<select><option>BOX-A12 · Security Store</option><option>BOX-B04 · Main Reception</option><option>Unassigned</option></select></label><label className="wide">Private identifying details<textarea required placeholder="Details used to verify a claimant, never shown publicly." /></label></div><label className="checkbox"><input type="checkbox" /> This is a restricted document or sensitive item</label><button className="primary" type="submit">Create custody record</button></form>}</section></main>;
+}

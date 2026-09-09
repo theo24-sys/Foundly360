@@ -1,0 +1,8 @@
+"use client";
+
+import { useState } from "react";
+
+export default function ReportLostPage() {
+  const [submitted, setSubmitted] = useState(false);
+  return <main className="form-shell"><a className="brand" href="/"><span className="brand-mark">+</span>foundry360</a><section className="public-form"><a className="back-link" href="/">← Back to Foundry360</a><p className="eyebrow">Public report</p><h1>Report something lost</h1><p className="muted">Your report goes to the institution’s lost-property desk. We only reveal details after verification.</p>{submitted ? <div className="confirmation"><span className="confirm-mark">✓</span><h2>Report received</h2><p>Your private case reference is <strong>LR-2026-1049</strong>. We will use your phone number for status updates.</p><a className="primary" href="/claim-status">Check case status</a></div> : <form onSubmit={(event) => { event.preventDefault(); setSubmitted(true); }}><div className="form-grid"><label>Name<input required placeholder="Your name" /></label><label>Phone number<input required type="tel" placeholder="07XX XXX XXX" /></label><label>What was lost?<select><option>Phone or electronics</option><option>Bag or wallet</option><option>Document or ID</option><option>Keys</option><option>Other</option></select></label><label>Where did you last see it?<input required placeholder="Library, gate, residence..." /></label><label className="wide">Describe it<textarea required placeholder="Include details that can help the desk verify ownership." /></label></div><button className="primary" type="submit">Submit lost report</button><p className="form-note">By submitting, you agree to receive case updates by SMS or WhatsApp.</p></form>}</section></main>;
+}

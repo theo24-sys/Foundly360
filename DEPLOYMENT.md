@@ -14,11 +14,18 @@ Do not place provider keys in Git. Add them through each platform's environment-
 ## 1. Supabase
 
 1. Create a Supabase project.
-2. Open **Connect** and copy the pooled PostgreSQL connection string.
-3. Use the pooled connection string as `DATABASE_URL` on Render.
+2. Open **Connect** and choose the **Session pooler** connection, not the direct connection.
+3. Use the pooler connection string as `DATABASE_URL` on Render.
 4. Keep the Supabase database password private.
 
-Use the transaction pooler for a small free deployment. Supabase may expose a direct connection and pooled connection; the pooled URL is usually the better fit for hosted server processes.
+Do not use the direct `db.<project-ref>.supabase.co:5432` connection on Render. It can resolve to IPv6, which may produce `Network is unreachable`. Use the Supabase pooler host instead. Session pooler is the safer default for Django migrations and persistent connections; transaction pooler can be used when Supabase only exposes that option.
+
+The URL should look similar to one of these:
+
+```text
+postgresql://postgres.<project-ref>:<password>@aws-0-<region>.pooler.supabase.com:5432/postgres
+postgresql://postgres.<project-ref>:<password>@aws-0-<region>.pooler.supabase.com:6543/postgres
+```
 
 ## 2. Redis
 
@@ -55,6 +62,18 @@ CSRF_TRUSTED_ORIGINS=https://your-vercel-app.vercel.app
 DATABASE_URL=<Supabase pooled URL>
 REDIS_URL=<Redis TLS URL>
 ```
+
+Use no trailing slash for the browser origins. `DJANGO_ALLOWED_HOSTS` is hostname-only and must not include `https://`:
+
+```text
+DJANGO_ALLOWED_HOSTS=foundly360-1.onrender.com
+CORS_ALLOWED_ORIGINS=https://lost-found-jet.vercel.app
+CSRF_TRUSTED_ORIGINS=https://lost-found-jet.vercel.app
+```
+
+`DATABASE_URL` is required when `DJANGO_DEBUG=0`. If it is missing, the service will stop with a clear configuration error instead of attempting to connect to `localhost:5432`.
+
+For Supabase, copy the complete pooled connection string, including its username, password, pooler host, port, and database name. Do not enter only the Supabase project URL or the direct `db...supabase.co` host.
 
 After deployment, test:
 
