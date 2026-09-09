@@ -131,11 +131,15 @@ Redeploy the API after changing those values.
 
 ## 6. First admin user
 
-The current Render start command runs migrations but does not create a user. For the first administrator, use Render's shell:
+Render's free plan may not provide Shell access. The Docker entrypoint can create the first admin automatically during deployment when all three variables are present. Add these as Render environment variables:
 
-```bash
-python manage.py createsuperuser
+```text
+FOUNDRY_ADMIN_USERNAME=ops-<unique-word>-<random-digits>
+FOUNDRY_ADMIN_EMAIL=your-private-admin-email@example.com
+FOUNDRY_ADMIN_PASSWORD=<unique-20-plus-character-password>
 ```
+
+Mark all three as secret/private. Do not use `admin`, `administrator`, `root`, `foundry360`, a name, a phone number, or a password reused anywhere else. Generate the password with a password manager. The command sets `is_staff` and `is_superuser`, and can safely be rerun to rotate the password for that administrator. After the first successful deployment, remove `FOUNDRY_ADMIN_PASSWORD` and redeploy; the account remains available.
 
 The next application step is an organization onboarding command that creates an `Organization` and `Membership` for that user.
 

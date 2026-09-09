@@ -7,5 +7,6 @@ WORKDIR /app
 COPY backend/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 COPY backend/ ./
+RUN chmod +x entrypoint.sh
 
-CMD sh -c 'python manage.py migrate && gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 2 --access-logfile -'
+CMD ["./entrypoint.sh"]
